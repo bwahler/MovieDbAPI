@@ -16,6 +16,7 @@ namespace MovieDbAPI.Controllers
         public ActionResult About()
         {
             ViewBag.Message = "Your application description page.";
+            string random = "test push";
 
             return View();
         }
