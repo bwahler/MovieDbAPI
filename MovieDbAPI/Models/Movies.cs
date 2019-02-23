@@ -22,7 +22,12 @@ namespace MovieDbAPI.Models
 
     public class MoviesDB : DbContext
     {
-        public  DbSet<Movies> Movie { get; set; }
+        public DbSet<Movies> Movie { get; set; }
     }
+
+    //public Movies(string title, string genre, string year, string synopsis, string director, string rating, string mpRating)
+    //{
+    //    Title=title; genre, year, synopsis, director, rating, mpRating
+    //}
 
 }
