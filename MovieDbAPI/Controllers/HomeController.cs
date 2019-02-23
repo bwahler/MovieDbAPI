@@ -29,28 +29,46 @@ namespace MovieDbAPI.Controllers
         public ActionResult Contact()
         {
             ViewBag.Message = "Your contact page.";
-
+            //the code is broken anyways do to the JOBJECT, but I was not even able to run it earlier, so you are already fixed it without copying the coffeeshop db
             return View();
         }
 
         public ActionResult MoviesDB()
         {
-            HttpWebRequest request = WebRequest.CreateHttp("http://www.omdbapi.com/?i=tt3896198&apikey=459c139");
-            HttpWebResponse response = (HttpWebResponse)request.GetResponse();
+            List<JToken> movie = new List<JToken>();
+            List<string> imdbID = new List<string>();//this will need to be moved over to the Movie object
+            {
+                imdbID.Add("tt0111161");
+                imdbID.Add("tt3896198");
 
-            StreamReader rd = new StreamReader(response.GetResponseStream());
-            string data = rd.ReadToEnd();
+            }
+            for (int i=0; i<=imdbID.Count; i++)
+            {
+                HttpWebRequest request = WebRequest.CreateHttp("http://www.omdbapi.com/?i="+imdbID[i]+"&apikey=459c139");
+                HttpWebResponse response = (HttpWebResponse)request.GetResponse();
 
-            JObject MoviesJson = JObject.Parse(data);
+                StreamReader rd = new StreamReader(response.GetResponseStream());
+                string data = rd.ReadToEnd();
+                JObject MoviesJson = JObject.Parse(data);
+                string title = MoviesJson["Title"].ToString();
+                string genre = MoviesJson["Genre"].ToString(); //maybe change to a list to allow cross genre searching - we will need to do a loop for each in the model
+                string year = MoviesJson["Year"].ToString();
+                string synopsis = MoviesJson["Plot"].ToString();
+                string director = MoviesJson["Director"].ToString();
+                string rating = MoviesJson["Metascore"].ToString();//we can change the rating we are pulling from
+                string mpRating = MoviesJson["Rated"].ToString();
+               // movie.Add(title, genre, year, synopsis, director, rating, mpRating);//change to data type to require certain data)
 
-            List<JToken> movie = MoviesJson["Type"].ToList();
+            }   
 
+            
+           
             List<Movies> output = new List<Movies>();
-            for (int i = 0; i < MoviesJson.Count; i++)
+            for (int i = 0; i < movie.Count; i++)
             {
                 Movies m = new Movies();
 
-                m.Title = movie[i]["Title"].ToString();
+                m.Title = movie[i].ToString();
                 //m.ImageURL = movie[i]["data"]["thumbnail"].ToString();
                 //m.LinkURL = "http://www.omdbapi.com/" + movie[i]["data"]["permalink"].ToString();
                 output.Add(m);
