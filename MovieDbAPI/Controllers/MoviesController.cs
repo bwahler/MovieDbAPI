@@ -17,6 +17,7 @@ namespace MovieDbAPI.Controllers
         // GET: Movies
         public ActionResult Index()
         {
+            //we can make this view the List return after a search or show their favorites
             return View(db.Movie.ToList());
         }
 

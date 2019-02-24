@@ -35,7 +35,7 @@ namespace MovieDbAPI.Controllers
 
         public ActionResult MoviesDB()
         {
-           
+            List<Movies> movies = new List<Movies>();
             List<string> imdbID = new List<string>();//this will need to be moved over to the Movie object
             {
                 imdbID.Add("tt0111161");
@@ -45,6 +45,9 @@ namespace MovieDbAPI.Controllers
             
             for (int i=0; i<=imdbID.Count; i++)
             {
+                //Change the i= to t= to search by title
+                //Change the i= to s= to do a seach (this will get a different data structure and multiple movies
+                //search probably needs to be its own Action
                 HttpWebRequest request = WebRequest.CreateHttp("http://www.omdbapi.com/?i="+imdbID[i]+"&apikey=459c139");
                 HttpWebResponse response = (HttpWebResponse)request.GetResponse();
 
@@ -58,7 +61,8 @@ namespace MovieDbAPI.Controllers
                 string director = MoviesJson["Director"].ToString();
                 string rating = MoviesJson["Metascore"].ToString();//we can change the rating we are pulling from
                 string mpRating = MoviesJson["Rated"].ToString();
-                //movie.Add(title, genre, year, synopsis, director, rating, mpRating);//change to data type to require certain data)
+                Movies m = new Movies(title, genre, year, synopsis, director, rating, mpRating);
+                movies.Add(m);//change to data type to require certain data)
                 
             }   
 
