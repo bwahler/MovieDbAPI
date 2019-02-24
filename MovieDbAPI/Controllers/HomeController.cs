@@ -35,13 +35,14 @@ namespace MovieDbAPI.Controllers
 
         public ActionResult MoviesDB()
         {
-            List<JToken> movie = new List<JToken>();
+           
             List<string> imdbID = new List<string>();//this will need to be moved over to the Movie object
             {
                 imdbID.Add("tt0111161");
                 imdbID.Add("tt3896198");
 
             }
+            
             for (int i=0; i<=imdbID.Count; i++)
             {
                 HttpWebRequest request = WebRequest.CreateHttp("http://www.omdbapi.com/?i="+imdbID[i]+"&apikey=459c139");
@@ -57,18 +58,18 @@ namespace MovieDbAPI.Controllers
                 string director = MoviesJson["Director"].ToString();
                 string rating = MoviesJson["Metascore"].ToString();//we can change the rating we are pulling from
                 string mpRating = MoviesJson["Rated"].ToString();
-               // movie.Add(title, genre, year, synopsis, director, rating, mpRating);//change to data type to require certain data)
-
+                //movie.Add(title, genre, year, synopsis, director, rating, mpRating);//change to data type to require certain data)
+                
             }   
 
             
            
             List<Movies> output = new List<Movies>();
-            for (int i = 0; i < movie.Count; i++)
+            for (int i = 0; i < output.Count; i++)
             {
                 Movies m = new Movies();
 
-                m.Title = movie[i].ToString();
+                m.Title = output[i].ToString();
                 //m.ImageURL = movie[i]["data"]["thumbnail"].ToString();
                 //m.LinkURL = "http://www.omdbapi.com/" + movie[i]["data"]["permalink"].ToString();
                 output.Add(m);

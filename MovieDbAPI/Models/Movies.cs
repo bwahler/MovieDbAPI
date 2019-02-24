@@ -18,16 +18,25 @@ namespace MovieDbAPI.Models
         public string Director { get; set; }
         public double Rating { get; set; }
         public string MPRating { get; set; }
-    }
 
+        public Movies()
+        {
+
+        }
+        public Movies(string title, string genre, string year, string synopsis, string director, string rating, string mpRating)
+        {
+            Title = title;
+            Genre = genre;
+            Year = int.Parse(year);
+            Synopsis = synopsis;
+            Director = director;
+            Rating = double.Parse(rating);
+            MPRating = mpRating;
+        }
+    }
     public class MoviesDB : DbContext
     {
         public DbSet<Movies> Movie { get; set; }
     }
-
-    //public Movies(string title, string genre, string year, string synopsis, string director, string rating, string mpRating)
-    //{
-    //    Title=title; genre, year, synopsis, director, rating, mpRating
-    //}
 
 }
