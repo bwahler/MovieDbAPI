@@ -18,12 +18,13 @@ namespace MovieDbAPI.Models
         public string Director { get; set; }
         public double Rating { get; set; }
         public string MPRating { get; set; }
+        public string Poster { get; set; }
 
         public Movies()
         {
 
         }
-        public Movies(string title, string genre, string year, string synopsis, string director, string rating, string mpRating)
+        public Movies(string title, string genre, string year, string synopsis, string director, string rating, string mpRating, string poster)
         {
             Title = title;
             Genre = genre;
@@ -32,6 +33,8 @@ namespace MovieDbAPI.Models
             Director = director;
             Rating = double.Parse(rating);
             MPRating = mpRating;
+            Poster = poster;
+
         }
     }
     public class MoviesDB : DbContext
