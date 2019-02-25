@@ -16,7 +16,7 @@ namespace MovieDbAPI.Models
         public int Year { get; set; }
         public string Synopsis { get; set; }
         public string Director { get; set; }
-        public double Rating { get; set; }
+        public string Rating { get; set; }
         public string MPRating { get; set; }
         public string Poster { get; set; }
 
@@ -31,7 +31,7 @@ namespace MovieDbAPI.Models
             Year = int.Parse(year);
             Synopsis = synopsis;
             Director = director;
-            Rating = double.Parse(rating);
+            Rating = rating;
             MPRating = mpRating;
             Poster = poster;
 
