@@ -1,0 +1,21 @@
+﻿@model IEnumerable<MovieDbAPI.Models.Movies>
+
+
+@foreach (var m in Model)
+{
+
+<a href="">
+    <h2>@m.Title</h2>
+    <img src=@m.Poster />
+
+    @*we could get fancy later and show certain data intially and upon click (command onclick) appear the rest of the data
+        then once the mouse moves away, hide the data*@
+    <p>Directed by: @m.Director</p>
+    <p>Year made: @m.Year</p>
+    <p>Metacritic rating: @m.Rating</p>
+    <p>Genres: @m.Genre</p>
+    <p>Motion Picture Rating: @m.MPRating</p>
+    <p>Synopsis: @m.Synopsis</p>
+
+</a>
+}
