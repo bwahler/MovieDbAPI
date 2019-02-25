@@ -14,9 +14,9 @@ namespace MovieDbAPI.Controllers
     {
         public ActionResult Index()
         {
-            Movies rp = MoviesDAL.GetPost(0);
+            Movies m = MoviesDAL.GetPost(0);
 
-            return View(rp);
+            return View(m);
         }
 
         public ActionResult About()
@@ -107,5 +107,7 @@ namespace MovieDbAPI.Controllers
 
             return View(movies);
         }
+
+       
     }
 }

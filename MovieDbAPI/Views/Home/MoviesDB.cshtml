@@ -4,7 +4,7 @@
 @foreach (var m in Model)
 {
 
-<a href="">
+<a href="~/Movies/Favorites">Favorite</a>
     <h2>@m.Title</h2>
     <img src=@m.Poster />
 
@@ -16,6 +16,4 @@
     <p>Genres: @m.Genre</p>
     <p>Motion Picture Rating: @m.MPRating</p>
     <p>Synopsis: @m.Synopsis</p>
-
-</a>
 }
