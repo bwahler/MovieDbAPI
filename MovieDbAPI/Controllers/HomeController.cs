@@ -106,7 +106,7 @@ namespace MovieDbAPI.Controllers
                 string poster = MoviesJson["Poster"].ToString();
 
                 Movies m = new Movies(title, genre, year, synopsis, director, rating, mpRating, poster);
-                movies.Add(m);
+                movies.Add(m);                
                 return View(movies);
             }
             else
@@ -114,10 +114,6 @@ namespace MovieDbAPI.Controllers
                 ViewBag.ErrorMessage = "Could not find any results. Please try again.";
                 return View("MovieSearch");
             }
-
-
         }
-
-       
     }
 }

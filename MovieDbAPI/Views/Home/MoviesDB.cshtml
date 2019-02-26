@@ -4,7 +4,7 @@
 @foreach (var m in Model)
 {
 
-<a href="~/Movies/Favorites">Favorite</a>
+<a href="/Movies/Favorites?Title=@m.Title">Add to Favorites</a>
     <h2>@m.Title</h2>
     <img src=@m.Poster />
 

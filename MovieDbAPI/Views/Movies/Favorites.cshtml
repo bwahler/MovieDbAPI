@@ -1,4 +1,4 @@
-﻿@*@model IEnumerable<MovieDbAPI.Models.Movies>*@
+﻿@model IEnumerable<MovieDbAPI.Models.Movies>
 
 <h2>Favorite Films List</h2>
 
@@ -13,17 +13,17 @@
         <th>mpRating</th>
         <th></th>
     </tr>
-    @foreach (var m in ViewBag.movie)
+    @foreach (var movie in ViewBag.movie)
     {
         <tr>
-            <td>@m.Title</td>
-            <td>@m.Genre</td>
-            <td>@m.Year</td>
-            <td>@m.Synopsis</td>
-            <td>@m.Director</td>
-            <td>@m.Rating</td>
-            <td>@m.MPRating</td>
-            <td><a href="/Home/DeleteMovieFromFavorites?ItemName=@m.Title">Delete from Favorites</a></td>
+            <td><a href=""@movie.Title></a></td>
+            <td>@movie.Genre</td>
+            <td>@movie.Year</td>
+            <td>@movie.Synopsis</td>
+            <td>@movie.Director</td>
+            <td>@movie.Rating</td>
+            <td>@movie.MPRating</td>
+            <td><a href="/Movies/Delete?Movie=@movie.Title" onclick="return confirm('Are you sure you want to remove this film from favorites?')">Remove Favorite</a></td>
         </tr>
     }
 </table>

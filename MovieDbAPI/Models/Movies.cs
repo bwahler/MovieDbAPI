@@ -19,6 +19,7 @@ namespace MovieDbAPI.Models
         public string Rating { get; set; }
         public string MPRating { get; set; }
         public string Poster { get; set; }
+        public string UserIDs { get; set; }
 
         public Movies()
         {
