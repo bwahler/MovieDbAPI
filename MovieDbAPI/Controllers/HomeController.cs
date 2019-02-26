@@ -14,7 +14,7 @@ namespace MovieDbAPI.Controllers
     {
         public ActionResult Index()
         {
-            Movies m = MoviesDAL.GetPost(0);
+            Movies m = MoviesDAL.GetPost("");
 
             return View(m);
         }
@@ -67,7 +67,7 @@ namespace MovieDbAPI.Controllers
                         string title = MoviesJson["Search"][i]["Title"].ToString();
                         string year = MoviesJson["Search"][i]["Year"].ToString();
                         string poster = MoviesJson["Search"][i]["Poster"].ToString();
-                        Movies m = new Movies(title, "", year, "", "", "", "", poster);
+                        Movies m = new Movies("", title, "", year, "", "", "", "", poster);
                         foundMovies.Add(m);
                     }
 
@@ -96,6 +96,7 @@ namespace MovieDbAPI.Controllers
             JObject MoviesJson = JObject.Parse(data);
             if (MoviesJson["Title"].ToString() != null && MoviesJson["Type"].ToString()=="movie")
             {
+                string movieID = MoviesJson["imdbID"].ToString();
                 string title = MoviesJson["Title"].ToString();
                 string genre = MoviesJson["Genre"].ToString(); //maybe change to a list to allow cross genre searching - we will need to do a loop for each in the model
                 string year = MoviesJson["Year"].ToString();
@@ -105,8 +106,9 @@ namespace MovieDbAPI.Controllers
                 string mpRating = MoviesJson["Rated"].ToString();
                 string poster = MoviesJson["Poster"].ToString();
 
-                Movies m = new Movies(title, genre, year, synopsis, director, rating, mpRating, poster);
-                movies.Add(m);                
+                Movies m = new Movies(movieID, title, genre, year, synopsis, director, rating, mpRating, poster);
+                movies.Add(m);
+                Session["m"] = m;
                 return View(movies);
             }
             else

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
+using System.Data.Entity.Validation;
 using System.Linq;
 using System.Net;
 using System.Web;
@@ -60,20 +61,23 @@ namespace MovieDbAPI.Controllers
             }
             return View(movies);
         }
-        public ActionResult Favorites(Movies movie)
+        public ActionResult Favorites(string movieID)
         {
-            if (ModelState.IsValid)
-            {
+            Session["movie"] = db.Movie;
+            ViewBag.movie = Session["movie"];
+            return View();
+        }
+
+        public ActionResult Add(Movies movie)
+        {
+            if (movie.MovieID != null)
+                movie = (Movies)Session["m"];
                 db.Movie.Add(movie);
                 db.SaveChanges();
-                ViewBag.movie = db.Movie;
-                return View("Favorites");
-            }
-            else
-            {
-                return View("Error");
-            }
+
+            return RedirectToAction("Favorites");
         }
+
 
         // POST: Movies/Edit/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
@@ -95,12 +99,12 @@ namespace MovieDbAPI.Controllers
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public ActionResult Delete(Movies id)
-        {            
+        {
             db.Movie.Remove(db.Movie.Find(id));
             db.SaveChanges();
             return RedirectToAction("Favorites");
         }
-        
+
         protected override void Dispose(bool disposing)
         {
             if (disposing)
