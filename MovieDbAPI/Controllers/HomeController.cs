@@ -58,21 +58,9 @@ namespace MovieDbAPI.Controllers
 
         public ActionResult MoviesDB(string Title)
         {
-            List<Movies> movies = new List<Movies>();
-            List<string> imdbID = new List<string>();//this will change based on the search results put in (we probably will do some refactoring later)
-            {
-                imdbID.Add("tt0111161");
-                imdbID.Add("tt3896198");
-
-            }
-            //t is for title, s is for a search
-            //for (int i=0; i<imdbID.Count; i++)
-            //{
-                //Change the i= to t= to search by title
-                //Change the i= to s= to do a seach (this will get a different data structure and multiple movies
-                //search probably needs to be its own Action
+            List<Movies> movies = new List<Movies>();            
+                
                 HttpWebRequest request = WebRequest.CreateHttp("http://www.omdbapi.com/?t=" + Title + "&apikey=459c139");
-                //HttpWebRequest request = WebRequest.CreateHttp("http://www.omdbapi.com/?i="+imdbID[i]+"&apikey=459c139");
                 HttpWebResponse response = (HttpWebResponse)request.GetResponse();
 
                 StreamReader rd = new StreamReader(response.GetResponseStream());
@@ -89,25 +77,8 @@ namespace MovieDbAPI.Controllers
 
                 Movies m = new Movies(title, genre, year, synopsis, director, rating, mpRating, poster);
                 movies.Add(m);
-                
-            //}   
 
-            
-           
-            //List<Movies> output = new List<Movies>();
-            //for (int i = 0; i < output.Count; i++)
-            //{
-            //    Movies m = new Movies();
-
-            //    m.Title = output[i].ToString();
-            //    //m.ImageURL = movie[i]["data"]["thumbnail"].ToString();
-            //    //m.LinkURL = "http://www.omdbapi.com/" + movie[i]["data"]["permalink"].ToString();
-            //    output.Add(m);
-            //}
-
-            return View(movies);
+                return View(movies);
         }
-
-       
     }
 }
