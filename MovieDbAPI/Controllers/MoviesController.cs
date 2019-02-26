@@ -71,11 +71,26 @@ namespace MovieDbAPI.Controllers
         public ActionResult Add(Movies movie)
         {
             if (movie.MovieID != null)
+            {
                 movie = (Movies)Session["m"];
+                string movieID = movie.MovieID;
+                
                 db.Movie.Add(movie);
-                db.SaveChanges();
+                try
+                {
+                    db.SaveChanges();
+                }
+                catch(Exception)
+                {
 
+                    ViewBag.ErrorMessage = "That movie is already in the database.";
+                    ViewBag.movie = db.Movie;
+                    return View("Favorites");
+                }
+            }
             return RedirectToAction("Favorites");
+
+           
         }
 
 
@@ -94,10 +109,7 @@ namespace MovieDbAPI.Controllers
             }
             return View(movies);
         }
-
-        // POST: Movies/Delete/5
-        //[HttpPost, ActionName("Delete")]
-        //[ValidateAntiForgeryToken]
+                
         public ActionResult Delete(string movieID)
         {
             Movies movie = db.Movie.Find(movieID);

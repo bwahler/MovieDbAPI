@@ -4,9 +4,10 @@
 @foreach (var m in Model)
 {
 
-<a href="/Movies/Add?movieID=@m.MovieID">Add to Favorites</a>
-    <h2>@m.Title</h2>
+    <h1>@m.Title</h1><br />
+    <h4><a href="/Movies/Add?movieID=@m.MovieID">Add to Favorites</a></h4><br />
     <img src=@m.Poster />
+    <br /><br />
 
     @*we could get fancy later and show certain data intially and upon click (command onclick) appear the rest of the data
         then once the mouse moves away, hide the data*@
