@@ -1,0 +1,29 @@
+﻿@*@model IEnumerable<MovieDbAPI.Models.Movies>*@
+
+<h2>Favorite Films List</h2>
+
+<table class="table">
+    <tr>
+        <th>Title</th>
+        <th>Genre</th>
+        <th>Year</th>
+        <th>Synopsis</th>
+        <th>Director</th>
+        <th>Rating</th>
+        <th>mpRating</th>
+        <th></th>
+    </tr>
+    @foreach (var m in ViewBag.movie)
+    {
+        <tr>
+            <td>@m.Title</td>
+            <td>@m.Genre</td>
+            <td>@m.Year</td>
+            <td>@m.Synopsis</td>
+            <td>@m.Director</td>
+            <td>@m.Rating</td>
+            <td>@m.MPRating</td>
+            <td><a href="/Home/DeleteMovieFromFavorites?ItemName=@m.Title">Delete from Favorites</a></td>
+        </tr>
+    }
+</table>

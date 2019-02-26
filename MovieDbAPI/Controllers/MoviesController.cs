@@ -49,14 +49,9 @@ namespace MovieDbAPI.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "MovieID,Title,Genre,Year,Synopsis,Director,Rating,MPRating")] Movies movies)
         {
-            if (ModelState.IsValid)
-            {
                 db.Movie.Add(movies);
                 db.SaveChanges();
-                return RedirectToAction("Index");
-            }
-
-            return View(movies);
+                return RedirectToAction("Favorites");
         }
 
         // GET: Movies/Edit/5
@@ -72,6 +67,13 @@ namespace MovieDbAPI.Controllers
                 return HttpNotFound();
             }
             return View(movies);
+        }
+        public ActionResult Favorites(Movies movie)
+        {
+            List<Movies> favorite = new List<Movies>();
+            favorite.Add(movie);
+            ViewBag.movie = favorite;
+            return View();
         }
 
         // POST: Movies/Edit/5

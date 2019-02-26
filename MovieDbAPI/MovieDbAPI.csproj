@@ -187,6 +187,7 @@
     <Content Include="Views\Home\UserRegistration.cshtml" />
     <Content Include="Views\Home\MovieSearch.cshtml" />
     <Content Include="Views\Home\SearchResult.cshtml" />
+    <Content Include="Views\Movies\Favorites.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

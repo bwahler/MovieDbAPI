@@ -14,15 +14,15 @@ namespace MovieDbAPI.Controllers
     {
         public ActionResult Index()
         {
-            Movies rp = MoviesDAL.GetPost(0);
+            Movies m = MoviesDAL.GetPost(0);
 
-            return View(rp);
+            return View(m);
         }
 
         public ActionResult About()
         {
             ViewBag.Message = "Your application description page.";
-
+            // first test to push file
             return View();
         }
 
@@ -117,5 +117,7 @@ namespace MovieDbAPI.Controllers
 
 
         }
+
+       
     }
 }
