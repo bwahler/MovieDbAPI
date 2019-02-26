@@ -1,7 +1,27 @@
-﻿<h2>Movie Search</h2>
 
-    <form action="~/Home/MoviesDB" method="get">
-        @*change from get to post later*@
-        <p>Title <input type="text" name="Title"/></p>
-        <input type="submit" name="Search"/>
-    </form>
+﻿
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Movie Search</title>
+    @if(ViewBag.ErrorMessage!=null)
+    {
+    <h3> @ViewBag.ErrorMessage</h3>
+    }
+</head>
+<body>
+    <div>
+        <form action="~/Home/MoviesDB" method="get">
+            @*change from get to post later*@
+            <p>Exact Title <input type="text" name="Title" /></p>
+            <input type="submit" name="Search" />
+        </form>
+        <form action="~/Home/SearchResult" method="get">
+            @*change from get to post later*@
+            <p>Search <input type="text" name="Search" /></p>
+            <input type="submit" name="Search" />
+        </form>
+
+    </div>
+</body>
+</html>
