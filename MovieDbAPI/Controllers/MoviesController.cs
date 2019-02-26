@@ -96,11 +96,12 @@ namespace MovieDbAPI.Controllers
         }
 
         // POST: Movies/Delete/5
-        [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
-        public ActionResult Delete(Movies id)
+        //[HttpPost, ActionName("Delete")]
+        //[ValidateAntiForgeryToken]
+        public ActionResult Delete(string movieID)
         {
-            db.Movie.Remove(db.Movie.Find(id));
+            Movies movie = db.Movie.Find(movieID);
+            db.Movie.Remove(movie);
             db.SaveChanges();
             return RedirectToAction("Favorites");
         }

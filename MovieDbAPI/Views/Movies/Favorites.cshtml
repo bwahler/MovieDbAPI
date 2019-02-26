@@ -15,15 +15,15 @@
     </tr>
     @foreach (var movie in ViewBag.movie)
     {
-        <tr>
-            <td>@movie.Title</td>
-            <td>@movie.Genre</td>
-            <td>@movie.Year</td>
-            <td>@movie.Synopsis</td>
-            <td>@movie.Director</td>
-            <td>@movie.Rating</td>
-            <td>@movie.MPRating</td>
-            <td><a href="/Movies/Delete?Movie=@movie.Title" onclick="return confirm('Are you sure you want to remove this film from favorites?')">Remove Favorite</a></td>
-        </tr>
+    <tr>
+        <td>@movie.Title</td>
+        <td>@movie.Genre</td>
+        <td>@movie.Year</td>
+        <td>@movie.Synopsis</td>
+        <td>@movie.Director</td>
+        <td>@movie.Rating</td>
+        <td>@movie.MPRating</td>        
+        <td><a href="/Movies/Delete?MovieID=@movie.MovieID" onclick="return confirm('Are you sure you want to remove this film from favorites?')">Remove Favorite</a></td>
+    </tr>
     }
 </table>
