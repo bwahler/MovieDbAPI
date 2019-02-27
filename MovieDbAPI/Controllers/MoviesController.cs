@@ -83,7 +83,7 @@ namespace MovieDbAPI.Controllers
                 catch(Exception)
                 {
 
-                    ViewBag.ErrorMessage = "That movie is already in the database.";
+                    ViewBag.ErrorMessage = "This film is already in the database.";
                     ViewBag.movie = db.Movie;
                     return View("Favorites");
                 }
