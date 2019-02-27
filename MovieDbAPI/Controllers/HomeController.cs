@@ -98,11 +98,11 @@ namespace MovieDbAPI.Controllers
             {
                 string movieID = MoviesJson["imdbID"].ToString();
                 string title = MoviesJson["Title"].ToString();
-                string genre = MoviesJson["Genre"].ToString(); //maybe change to a list to allow cross genre searching - we will need to do a loop for each in the model
+                string genre = MoviesJson["Genre"].ToString();
                 string year = MoviesJson["Year"].ToString();
                 string synopsis = MoviesJson["Plot"].ToString();
                 string director = MoviesJson["Director"].ToString();
-                string rating = MoviesJson["Metascore"].ToString();//we can change the rating we are pulling from
+                string rating = MoviesJson["Metascore"].ToString();
                 string mpRating = MoviesJson["Rated"].ToString();
                 string poster = MoviesJson["Poster"].ToString();
 
