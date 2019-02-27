@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
+using System.Data.Entity.Validation;
 using System.Linq;
 using System.Net;
 using System.Web;
@@ -18,7 +19,7 @@ namespace MovieDbAPI.Controllers
         public ActionResult Index()
         {
             //we can make this view the List return after a search or show their favorites
-            return View(db.Movie.ToList());
+            return View();
         }
 
         // GET: Movies/Details/5
@@ -36,27 +37,14 @@ namespace MovieDbAPI.Controllers
             return View(movies);
         }
 
-        // GET: Movies/Create
-        public ActionResult Create()
-        {
-            return View();
-        }
-
         // POST: Movies/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "MovieID,Title,Genre,Year,Synopsis,Director,Rating,MPRating")] Movies movies)
+        public ActionResult Create()
         {
-            if (ModelState.IsValid)
-            {
-                db.Movie.Add(movies);
-                db.SaveChanges();
-                return RedirectToAction("Index");
-            }
-
-            return View(movies);
+            return View();
         }
 
         // GET: Movies/Edit/5
@@ -73,6 +61,38 @@ namespace MovieDbAPI.Controllers
             }
             return View(movies);
         }
+        public ActionResult Favorites(string movieID)
+        {
+            Session["movie"] = db.Movie;
+            ViewBag.movie = Session["movie"];
+            return View();
+        }
+
+        public ActionResult Add(Movies movie)
+        {
+            if (movie.MovieID != null)
+            {
+                movie = (Movies)Session["m"];
+                string movieID = movie.MovieID;
+                
+                db.Movie.Add(movie);
+                try
+                {
+                    db.SaveChanges();
+                }
+                catch(Exception)
+                {
+
+                    ViewBag.ErrorMessage = "This film is already in the database.";
+                    ViewBag.movie = db.Movie;
+                    return View("Favorites");
+                }
+            }
+            return RedirectToAction("Favorites");
+
+           
+        }
+
 
         // POST: Movies/Edit/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
@@ -89,31 +109,13 @@ namespace MovieDbAPI.Controllers
             }
             return View(movies);
         }
-
-        // GET: Movies/Delete/5
-        public ActionResult Delete(int? id)
+                
+        public ActionResult Delete(string movieID)
         {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            Movies movies = db.Movie.Find(id);
-            if (movies == null)
-            {
-                return HttpNotFound();
-            }
-            return View(movies);
-        }
-
-        // POST: Movies/Delete/5
-        [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
-        public ActionResult DeleteConfirmed(int id)
-        {
-            Movies movies = db.Movie.Find(id);
-            db.Movie.Remove(movies);
+            Movies movie = db.Movie.Find(movieID);
+            db.Movie.Remove(movie);
             db.SaveChanges();
-            return RedirectToAction("Index");
+            return RedirectToAction("Favorites");
         }
 
         protected override void Dispose(bool disposing)

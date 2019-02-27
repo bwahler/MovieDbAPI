@@ -1,0 +1,10 @@
+﻿<h2>Search Results</h2>
+
+@foreach (var result in ViewBag.Results)
+{
+<a href="/Home/MoviesDB?Title=@result.Title">
+    <h4>Title: @result.Title</h4>
+    <p>Year made: @result.Year</p>
+    <img src=@result.Poster />
+</a>
+}

@@ -20,10 +20,11 @@ namespace MovieDbAPI.Models
             return data;
         }
 
-        public static Movies GetPost(int i)
+        public static Movies GetPost(string movieID)
         {
-            string output = GetData("http://www.omdbapi.com/?i=tt3896198&apikey=459c139");
-            Movies m = new Movies();
+            string movieImdb = movieID;
+            string output = GetData($"http://www.omdbapi.com/?i={movieImdb}&apikey=459c139");
+            Movies m = new Movies(output);
 
             return m;
         }
