@@ -31,7 +31,7 @@ namespace MovieDbAPI.Controllers
         public ActionResult Contact()
         {
             ViewBag.Message = "Your contact page.";
-             return View();
+            return View();
         }
         public ActionResult UserRegistration()
         {
@@ -60,7 +60,7 @@ namespace MovieDbAPI.Controllers
             StreamReader rd = new StreamReader(response.GetResponseStream());
             string data = rd.ReadToEnd();
             JObject MoviesJson = JObject.Parse(data);
-            if (MoviesJson["Response"].ToString()=="True")
+            if (MoviesJson["Response"].ToString() == "True")
             {
                 for (int i = 0; i < MoviesJson["Search"].Count(); i++)
                 {
@@ -96,29 +96,37 @@ namespace MovieDbAPI.Controllers
             StreamReader rd = new StreamReader(response.GetResponseStream());
             string data = rd.ReadToEnd();
             JObject MoviesJson = JObject.Parse(data);
-            if (MoviesJson["Title"].ToString() != null && MoviesJson["Type"].ToString()=="movie")
+            try
             {
-                string movieID = MoviesJson["imdbID"].ToString();
-                string title = MoviesJson["Title"].ToString();
-                string genre = MoviesJson["Genre"].ToString();
-                string year = MoviesJson["Year"].ToString();
-                string synopsis = MoviesJson["Plot"].ToString();
-                string director = MoviesJson["Director"].ToString();
-                string rating = MoviesJson["Metascore"].ToString();
-                string mpRating = MoviesJson["Rated"].ToString();
-                string poster = MoviesJson["Poster"].ToString();
+                if (MoviesJson["Title"].ToString() != null && MoviesJson["Type"].ToString() == "movie")
+                {
+                    string movieID = MoviesJson["imdbID"].ToString();
+                    string title = MoviesJson["Title"].ToString();
+                    string genre = MoviesJson["Genre"].ToString();
+                    string year = MoviesJson["Year"].ToString();
+                    string synopsis = MoviesJson["Plot"].ToString();
+                    string director = MoviesJson["Director"].ToString();
+                    string rating = MoviesJson["Metascore"].ToString();
+                    string mpRating = MoviesJson["Rated"].ToString();
+                    string poster = MoviesJson["Poster"].ToString();
 
-                Movies m = new Movies(movieID, title, genre, year, synopsis, director, rating, mpRating, poster);
-                movies.Add(m);
-                Session["m"] = m;
-                //Movies checkMovieID = db.Movie.Find(movieID);
-                //if(checkMovieID.MovieID == movieID)
-                //{
-                //    ViewBag.Message = "This film is already in the database.";
-                //}
-                return View(movies);
+                    Movies m = new Movies(movieID, title, genre, year, synopsis, director, rating, mpRating, poster);
+                    movies.Add(m);
+                    Session["m"] = m;
+                    //Movies checkMovieID = db.Movie.Find(movieID);
+                    //if(checkMovieID.MovieID == movieID)
+                    //{
+                    //    ViewBag.Message = "This film is already in the database.";
+                    //}
+                    return View(movies);
+                }
+                else
+                {
+                    ViewBag.ErrorMessage = "Could not find any results. Please try again.";
+                    return View("MovieSearch");
+                }
             }
-            else
+            catch
             {
                 ViewBag.ErrorMessage = "Could not find any results. Please try again.";
                 return View("MovieSearch");
