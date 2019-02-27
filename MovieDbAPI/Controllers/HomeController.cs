@@ -12,6 +12,8 @@ namespace MovieDbAPI.Controllers
 {
     public class HomeController : Controller
     {
+        private MoviesDB db = new MoviesDB();
+
         public ActionResult Index()
         {
             Movies m = MoviesDAL.GetPost("");
@@ -109,6 +111,11 @@ namespace MovieDbAPI.Controllers
                 Movies m = new Movies(movieID, title, genre, year, synopsis, director, rating, mpRating, poster);
                 movies.Add(m);
                 Session["m"] = m;
+                //Movies checkMovieID = db.Movie.Find(movieID);
+                //if(checkMovieID.MovieID == movieID)
+                //{
+                //    ViewBag.Message = "This film is already in the database.";
+                //}
                 return View(movies);
             }
             else

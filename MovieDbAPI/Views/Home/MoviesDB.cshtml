@@ -5,6 +5,15 @@
 {
 
     <h1>@m.Title</h1><br />
+
+    @*if (ViewBag.Message == null)
+        {
+
+        }
+        else
+        {
+        @ViewBag.Message
+        }*@
     <h4><a href="/Movies/Add?movieID=@m.MovieID">Add to Favorites</a></h4><br />
     <img src=@m.Poster />
     <br /><br />
